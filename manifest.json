@@ -1,0 +1,19 @@
+{
+  "name": "WOW related",
+  "version": "1.0",
+  "description": "Hop between Thottbot, Battle.NET & Wowhead pages for a particular WoW item. Mail me at alex.georgiou@gmail.com.",
+  "background_page": "background.html",
+  "page_action": {
+    "default_title": "Related WoW pages",
+    "default_icon": "images/wow16.png",
+    "default_popup": "popup.html"
+  },
+  "permissions" : [
+    "tabs"
+  ],
+  "icons" : {
+    "16" : "images/wow16.png",
+    "48" : "images/wow48.png",
+    "128" : "images/wow128.png"
+  }
+}

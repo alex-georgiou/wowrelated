@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- Alexg -->
+<html>
+<head>
+<script>
+var current_site = null;
+var current_item = null;
+
+function checkForValidUrl(tabId, changeInfo, tab) {
+	if (
+			tab.url.match('^http://www.wowhead.com/item=([0-9]+)') ||
+			tab.url.match('^http://[a-z]+.battle.net/wow/\[a-z]+/item/([0-9]+)') ||
+			tab.url.match('^http://thottbot.com/item=([0-9]+)')
+	) {
+		chrome.pageAction.show(tabId);
+	}
+}
+
+chrome.tabs.onUpdated.addListener(checkForValidUrl);
+
+function reportUrl(request, sender, sendResponse) {
+	if (request.action == 'getUrl') {
+		chrome.tabs.getSelected(null,function(tab) {
+			sendResponse({'url': tab.url});
+		});
+	}
+}
+
+chrome.extension.onRequest.addListener(reportUrl);
+</script>
+</head>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Alexg -->
+<html>
+<head>
+<style>
+	body { font-family: Verdana, Arial; color: silver; min-width: 200px;}
+	h1 { font-size: 14px; color: black; }
+	ul,li { list-style-type: none; margin:5px; padding:0; }
+	img { margin-right: 10px;}
+	
+</style>
+<script>
+function init() {
+		var req = { 'action' : 'getUrl'};
+		
+		chrome.extension.sendRequest(req, function(response) {
+			
+			if (matches = response.url.match('/item[/=]([0-9]+)')) {
+
+				var item_id = matches[1]; 
+
+				var list_content ='';
+
+				if (!response.url.match('^http://www.wowhead.com'))
+					list_content+= '<li><img src="images/wowhead.ico"/><a target="_new" href="http://www.wowhead.com/item='+item_id+'">Wowhead</a></li>';
+
+				if (!response.url.match('^http://[a-z]+.battle.net'))
+					list_content+= '<li><img src="images/wow.ico"/><a target="_new" href="http://eu.battle.net/wow/en/item/'+item_id+'">Battle.NET</a></li>';
+
+				if (!response.url.match('^http://thottbot.com'))
+					list_content+= '<li><img src="images/thottbot.png"/><a target="_new" href="http://thottbot.com/item='+item_id+'">Thottbot</a></li>';
+
+				document.getElementById('wow_list').innerHTML = list_content;				
+			}
+			
+		});
+};
+</script>
+</head>
+<body onload="init();">
+<h1>Related WoW pages for this item:</h1>
+<ul id="wow_list">
+</ul>
+</body>
+</html>
